@@ -1,15 +1,15 @@
-package com.myour.whowroteitv3.ui.view.addbook
+package com.myour.whowroteitv3.feature.addbook.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.myour.whowroteitv3.R
-import com.myour.whowroteitv3.data.model.local.GBookEntity
+import com.myour.whowroteitv3.core.api.Response
+import com.myour.whowroteitv3.core.util.ModelMapping
+import com.myour.whowroteitv3.core.util.SystemUtils
 import com.myour.whowroteitv3.data.repository.GBookRepository
-import com.myour.whowroteitv3.util.ModelMapping
-import com.myour.whowroteitv3.util.Response
-import com.myour.whowroteitv3.util.SystemUtils
+import com.myour.whowroteitv3.data.repository.model.GBookModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,7 +21,7 @@ class AddBookViewModel @Inject constructor(
     private val mRepository: GBookRepository,
 ) : AndroidViewModel(app) {
 
-    val getOneBookBySearchAndAddLiveData = MutableLiveData<Response<GBookEntity>>()
+    val getOneBookBySearchAndAddLiveData = MutableLiveData<Response<GBookModel>>()
 
     fun getOneBookBySearchAndAdd(queryString: String) =
         viewModelScope.launch(Dispatchers.IO) {
@@ -32,13 +32,14 @@ class AddBookViewModel @Inject constructor(
                 getOneBookBySearchAndAddLiveData.postValue(Response.Loading())
                 val response = mRepository.getOneBookBySearch(queryString)
                 if (response.isSuccessful) {
-                    val gBook = response.body()?.items?.get(0)
-                    if (gBook == null) {
+                    val gBookResponse = response.body()?.items?.get(0)
+                    if (gBookResponse == null) {
                         getOneBookBySearchAndAddLiveData.postValue(Response.Success(null))
                     } else {
-                        val gBookEntity = ModelMapping.mappingResponseToEntity(gBook)
+                        val gBookEntity = ModelMapping.mappingResponseToEntity(gBookResponse)
+                        val gBookModel = ModelMapping.mappingResponseToRepoModel(gBookResponse)
                         mRepository.insertBook(gBookEntity)
-                        getOneBookBySearchAndAddLiveData.postValue(Response.Success(gBookEntity))
+                        getOneBookBySearchAndAddLiveData.postValue(Response.Success(gBookModel))
                     }
                 } else getOneBookBySearchAndAddLiveData.postValue(Response.Error(response.message()))
             }

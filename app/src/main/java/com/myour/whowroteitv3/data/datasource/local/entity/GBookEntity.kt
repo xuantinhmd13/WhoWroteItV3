@@ -1,4 +1,4 @@
-package com.myour.whowroteitv3.data.model.local
+package com.myour.whowroteitv3.data.datasource.local.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

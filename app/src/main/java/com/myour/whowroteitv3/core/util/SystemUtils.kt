@@ -1,4 +1,4 @@
-package com.myour.whowroteitv3.util
+package com.myour.whowroteitv3.core.util
 
 import android.content.Context
 import android.net.ConnectivityManager

@@ -1,11 +1,12 @@
-package com.myour.whowroteitv3.ui.adapter
+package com.myour.whowroteitv3.feature.showbook.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
-import com.myour.whowroteitv3.data.model.local.GBookEntity
+import com.myour.whowroteitv3.core.view.ItemLongClickListener
+import com.myour.whowroteitv3.data.datasource.local.entity.GBookEntity
 import com.myour.whowroteitv3.databinding.ItemBookBinding
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
@@ -22,15 +23,26 @@ class GBookAdapter @Inject constructor(
             notifyDataSetChanged()
         }
 
-    private lateinit var mClickListener: ClickListener
+    private lateinit var mLongClickListener: ItemLongClickListener
 
-    interface ClickListener {
-        fun onItemLongClick(v: View?, position: Int): Boolean
+    fun setOnItemLongClickListener(longClickListener: ItemLongClickListener) {
+        this.mLongClickListener = longClickListener
     }
 
-    fun setOnItemLongClickListener(clickListener: ClickListener) {
-        this.mClickListener = clickListener
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val bd = ItemBookBinding.inflate(layoutInflater, parent, false)
+        return ViewHolder(bd)
     }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        mBooks?.let { holder.bindData(it[position]) }
+    }
+
+    override fun getItemCount() = mBooks?.size ?: 0
 
     inner class ViewHolder(private val bd: ItemBookBinding) : RecyclerView.ViewHolder(bd.root),
         View.OnLongClickListener {
@@ -48,22 +60,7 @@ class GBookAdapter @Inject constructor(
         }
 
         override fun onLongClick(v: View?): Boolean {
-            return mClickListener.onItemLongClick(v, adapterPosition)
+            return mLongClickListener.onItemLongClick(v, adapterPosition)
         }
     }
-
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int,
-    ): ViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val bd = ItemBookBinding.inflate(layoutInflater, parent, false)
-        return ViewHolder(bd)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        mBooks?.let { holder.bindData(it[position]) }
-    }
-
-    override fun getItemCount() = mBooks?.size ?: 0
 }

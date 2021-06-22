@@ -7,9 +7,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.google.gson.GsonBuilder
 import com.myour.whowroteitv3.R
-import com.myour.whowroteitv3.data.api.IGBookAPI
-import com.myour.whowroteitv3.data.database.GBookDatabase
-import com.myour.whowroteitv3.util.Const
+import com.myour.whowroteitv3.data.datasource.remote.service.IGBookService
+import com.myour.whowroteitv3.data.datasource.local.db.GBookDatabase
+import com.myour.whowroteitv3.core.util.Const
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,7 +19,6 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -39,7 +38,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideGBookAPI(): IGBookAPI {
+    fun provideGBookService(): IGBookService {
         val gson = GsonBuilder().setLenient().create()
 
         val okHttpClient = OkHttpClient.Builder()
@@ -54,7 +53,7 @@ object AppModule {
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
-            .create(IGBookAPI::class.java)
+            .create(IGBookService::class.java)
     }
 
     @Singleton

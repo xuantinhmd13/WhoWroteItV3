@@ -1,4 +1,4 @@
-package com.myour.whowroteitv3.data.model.remote
+package com.myour.whowroteitv3.data.datasource.remote.model
 
 
 import com.google.gson.annotations.SerializedName

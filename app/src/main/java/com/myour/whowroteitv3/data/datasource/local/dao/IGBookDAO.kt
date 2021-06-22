@@ -1,8 +1,8 @@
-package com.myour.whowroteitv3.data.database
+package com.myour.whowroteitv3.data.datasource.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.myour.whowroteitv3.data.model.local.GBookEntity
+import com.myour.whowroteitv3.data.datasource.local.entity.GBookEntity
 
 @Dao
 interface IGBookDAO {

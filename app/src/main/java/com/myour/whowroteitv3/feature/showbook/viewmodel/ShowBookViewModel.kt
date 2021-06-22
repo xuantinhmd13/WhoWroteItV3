@@ -1,9 +1,9 @@
-package com.myour.whowroteitv3.ui.view.showbook
+package com.myour.whowroteitv3.feature.showbook.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.myour.whowroteitv3.data.model.local.GBookEntity
+import com.myour.whowroteitv3.data.datasource.local.entity.GBookEntity
 import com.myour.whowroteitv3.data.repository.GBookRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

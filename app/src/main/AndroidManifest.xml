@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WhoWroteIt">
         <activity
-            android:name="com.myour.whowroteitv3.ui.view.showbook.ShowBookActivity"
+            android:name="com.myour.whowroteitv3.feature.showbook.view.ShowBookActivity"
             android:theme="@style/Theme.WhoWroteIt.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,11 +23,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.myour.whowroteitv3.ui.view.addbook.AddBookActivity"
-            android:parentActivityName="com.myour.whowroteitv3.ui.view.showbook.ShowBookActivity">
+            android:name="com.myour.whowroteitv3.feature.addbook.view.AddBookActivity"
+            android:parentActivityName="com.myour.whowroteitv3.feature.showbook.view.ShowBookActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.myour.whowroteitv3.ui.view.showbook.ShowBookActivity" />
+                android:value="com.myour.whowroteitv3.feature.showbook.view.ShowBookActivity" />
         </activity>
     </application>
 

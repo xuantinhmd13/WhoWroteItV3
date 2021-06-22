@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/padding_regular"
-    tools:context=".ui.view.addbook.AddBookActivity">
+    tools:context=".feature.addbook.view.AddBookActivity">
 
     <TextView
         android:id="@+id/text_view_instructions"

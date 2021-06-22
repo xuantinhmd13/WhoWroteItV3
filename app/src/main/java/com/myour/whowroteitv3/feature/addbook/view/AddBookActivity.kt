@@ -1,4 +1,4 @@
-package com.myour.whowroteitv3.ui.view.addbook
+package com.myour.whowroteitv3.feature.addbook.view
 
 import android.os.Bundle
 import android.widget.Toast
@@ -6,8 +6,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.myour.whowroteitv3.R
 import com.myour.whowroteitv3.databinding.ActivityAddBookBinding
-import com.myour.whowroteitv3.util.Response
-import com.myour.whowroteitv3.util.SystemUtils
+import com.myour.whowroteitv3.core.api.Response
+import com.myour.whowroteitv3.core.util.SystemUtils
+import com.myour.whowroteitv3.feature.addbook.viewmodel.AddBookViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,13 +23,11 @@ class AddBookActivity : AppCompatActivity() {
         bd = ActivityAddBookBinding.inflate(layoutInflater)
         setContentView(bd.root)
 
-        observeData()
-
+        setObserveData()
         setEvent()
-
     }
 
-    private fun observeData() {
+    private fun setObserveData() {
         mAddBookViewModel.getOneBookBySearchAndAddLiveData.observe(this, {
             when (it) {
                 is Response.Loading -> {
@@ -40,9 +39,9 @@ class AddBookActivity : AppCompatActivity() {
                         getString(R.string.message_success),
                         Toast.LENGTH_SHORT)
                         .show()
-                    val gBook = it.data
-                    if (gBook != null) {
-                        setBookInfo(gBook.title, gBook.authors)
+                    val gBookRepoModel = it.data
+                    if (gBookRepoModel != null) {
+                        setBookInfo(gBookRepoModel.title, gBookRepoModel.authors)
                     } else setBookInfo(getString(R.string.no_results), "")
                 }
 

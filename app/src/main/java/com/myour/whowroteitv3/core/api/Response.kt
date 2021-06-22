@@ -1,4 +1,4 @@
-package com.myour.whowroteitv3.util
+package com.myour.whowroteitv3.core.api
 
 sealed class Response<T>(
     val data: T? = null,

@@ -1,13 +1,13 @@
 package com.myour.whowroteitv3.data.repository
 
-import com.myour.whowroteitv3.data.api.IGBookAPI
-import com.myour.whowroteitv3.data.database.IGBookDAO
-import com.myour.whowroteitv3.data.model.local.GBookEntity
+import com.myour.whowroteitv3.data.datasource.remote.service.IGBookService
+import com.myour.whowroteitv3.data.datasource.local.dao.IGBookDAO
+import com.myour.whowroteitv3.data.datasource.local.entity.GBookEntity
 import javax.inject.Inject
 
 class GBookRepository @Inject constructor(
     private val mGBookDAO: IGBookDAO,
-    private val mGBookAPI: IGBookAPI,
+    private val mGBookService: IGBookService,
 ) {
 
     fun getAllBooks() = mGBookDAO.getAllBooks()
@@ -25,5 +25,5 @@ class GBookRepository @Inject constructor(
     }
 
     suspend fun getOneBookBySearch(queryString: String) =
-        mGBookAPI.getOneBookBySearch(queryString, 1, "books", "epub")
+        mGBookService.getOneBookBySearch(queryString, 1, "books", "epub")
 }

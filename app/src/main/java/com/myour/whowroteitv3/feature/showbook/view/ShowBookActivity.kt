@@ -1,4 +1,4 @@
-package com.myour.whowroteitv3.ui.view.showbook
+package com.myour.whowroteitv3.feature.showbook.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,9 +11,11 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.myour.whowroteitv3.R
+import com.myour.whowroteitv3.core.view.ItemLongClickListener
 import com.myour.whowroteitv3.databinding.ActivityShowBookBinding
-import com.myour.whowroteitv3.ui.adapter.GBookAdapter
-import com.myour.whowroteitv3.ui.view.addbook.AddBookActivity
+import com.myour.whowroteitv3.feature.addbook.view.AddBookActivity
+import com.myour.whowroteitv3.feature.showbook.adapter.GBookAdapter
+import com.myour.whowroteitv3.feature.showbook.viewmodel.ShowBookViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -22,14 +24,14 @@ class ShowBookActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener 
 
     @Inject
     lateinit var adapter: GBookAdapter
-    private lateinit var bd: ActivityShowBookBinding
+    private var bd: ActivityShowBookBinding? = null
     private val mShowBookViewModel: ShowBookViewModel by viewModels()
     private var mPosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bd = ActivityShowBookBinding.inflate(layoutInflater)
-        setContentView(bd.root)
+        setContentView(bd!!.root)
 
         setInit()
         setRecyclerView()
@@ -38,8 +40,8 @@ class ShowBookActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener 
     }
 
     private fun setRecyclerView() {
-        bd.contentShowBook.recyclerViewBook.adapter = adapter
-        bd.contentShowBook.recyclerViewBook.layoutManager = LinearLayoutManager(this)
+        bd!!.contentShowBook.recyclerViewBook.adapter = adapter
+        bd!!.contentShowBook.recyclerViewBook.layoutManager = LinearLayoutManager(this)
     }
 
     private fun setObserveData() {
@@ -48,8 +50,8 @@ class ShowBookActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener 
     }
 
     private fun setEvent() {
-        bd.fab.setOnClickListener { clickFab() }
-        adapter.setOnItemLongClickListener(object : GBookAdapter.ClickListener {
+        bd!!.fab.setOnClickListener { clickFab() }
+        adapter.setOnItemLongClickListener(object : ItemLongClickListener {
             override fun onItemLongClick(v: View?, position: Int): Boolean {
                 mPosition = position
                 showPopup(v)
@@ -63,7 +65,7 @@ class ShowBookActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener 
     }
 
     private fun setInit() {
-        setSupportActionBar(bd.toolbar)
+        setSupportActionBar(bd!!.toolbar)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -104,5 +106,8 @@ class ShowBookActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener 
         }
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        bd = null
+    }
 }

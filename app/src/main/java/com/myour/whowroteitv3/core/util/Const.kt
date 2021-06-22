@@ -1,7 +1,6 @@
-package com.myour.whowroteitv3.util
+package com.myour.whowroteitv3.core.util
 
 import androidx.appcompat.app.AppCompatActivity
-import com.myour.whowroteitv3.R
 
 object Const : AppCompatActivity() {
 
