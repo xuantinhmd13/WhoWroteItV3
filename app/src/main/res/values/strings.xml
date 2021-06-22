@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">WhoWroteItV3</string>
+
+    <string name="instructions">Enter a book name to find out who wrote the book. </string>
+    <string name="button_text">Search and Add Books</string>
+    <string name="input_hint">Book Title</string>
+
+    <string name="loading">Loading…</string>
+    <string name="no_results">"No Results Found"</string>
+    <string name="no_search_term">Please enter a search term</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="label_title">Title:</string>
+    <string name="label_author">Author:</string>
+    <string name="label_published_date">Published date:</string>
+
+    <string name="clear_all_data">Clear all data</string>
+    <string name="delete_label">Delete</string>
+    <string name="deleted_label">Deleted</string>
+
+    <string name="message_success">Successfully!</string>
+    <string name="message_error">An error occured: </string>
+    <string name="message_no_internet">No internet connection!</string>
+</resources>
